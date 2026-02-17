@@ -1,20 +1,57 @@
 """
-Author: <YOUR REAL FIRST AND LAST NAME>
-Assignment: #1
+Author: Navjot Kaur Mathoda
+Stu id : 101586898
+Assignment: #1 COMP2152
 """
 
-# Step b: Create 4 variables
+# Variables with data types
+gym_member = "Alex Alliton"      # str
+preferred_weight_kg = 20.5       # float
+highest_reps = 25                # int
+membership_active = True         # bool
 
-# Step c: Create a dictionary named workout_stats
+# Dictionary storing workout minutes (dict with tuple values)
+workout_stats = {
+    "Alex": (30, 45, 20),
+    "Gigi": (25, 35, 40),
+    "Eric": (50, 30, 25)
+}
 
-# Step d: Calculate total workout minutes using a loop and add to dictionary
+# Calculate total minutes for each friend and add to dictionary
+for friend, minutes in workout_stats.copy().items():
+    total_minutes = sum(minutes)
+    workout_stats[friend + "_Total"] = total_minutes
 
-# Step e: Create a 2D nested list called workout_list
+# Create 2D list (nested list) from workout minutes
+workout_list = [list(workout_stats[friend]) for friend in ["Alex", "Gigi", "Eric"]]
 
-# Step f: Slice the workout_list
+# Slice and print yoga and running minutes
+yoga_running = [row[:2] for row in workout_list]
+print("Yoga and Running minutes:", yoga_running)
 
-# Step g: Check if any friend's total >= 120
+# Slice and print weightlifting for last two friends
+weightlifting_last_two = [row[2] for row in workout_list[-2:]]
+print("Weightlifting (last two friends):", weightlifting_last_two)
 
-# Step h: User input to look up a friend
+# Check if any friend has total >= 120 minutes
+for friend in ["Alex", "Gigi", "Eric"]:
+    if workout_stats[friend + "_Total"] >= 120:
+        print(f"Great job staying active, {friend}!")
 
-# Step i: Friend with highest and lowest total workout minutes
+# Ask user for friend's name
+friend_name = input("Enter a friend's name: ")
+
+if friend_name in workout_stats:
+    print("Workout minutes (yoga, running, weightlifting):", workout_stats[friend_name])
+    print("Total minutes:", workout_stats.get(friend_name + "_Total"))
+else:
+    print(f"Friend {friend_name} not found in the records.")
+
+# Find highest and lowest total workout minutes
+totals = {friend: workout_stats[friend + "_Total"] for friend in ["Alex", "Gigi", "Eric"]}
+
+highest_friend = max(totals, key=totals.get)
+lowest_friend = min(totals, key=totals.get)
+
+print("Friend with highest total minutes:", highest_friend)
+print("Friend with lowest total minutes:", lowest_friend)
